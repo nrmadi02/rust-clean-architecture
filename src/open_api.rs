@@ -2,7 +2,7 @@ use utoipa::OpenApi;
 use crate::adapters::api::__path_create_user;
 use crate::adapters::api::__path_get_user;
 use crate::domain::User;
-use crate::errors::ErrorResponse;
+use crate::domain::dto::{ ApiResponse, ApiErrorResponse};
 use crate::adapters::api::CreateUserRequest;
 
 #[derive(OpenApi)]
@@ -17,7 +17,12 @@ use crate::adapters::api::CreateUserRequest;
         create_user,
     ),
     components(
-        schemas(User, ErrorResponse, CreateUserRequest)
+        schemas(
+            User,
+            ApiResponse<User>,
+            ApiErrorResponse,
+            CreateUserRequest,
+        )
     ),
     tags(
         (name = "User", description = "User management endpoints.")

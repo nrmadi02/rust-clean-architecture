@@ -1,24 +1,32 @@
+// src/errors.rs
+
 use actix_web::{HttpResponse, ResponseError};
 use thiserror::Error;
 use crate::domain::dto::ApiErrorResponse;
 use std::collections::HashMap;
 
+/// Enum yang mewakili berbagai jenis error yang dapat terjadi dalam aplikasi.
 #[derive(Error, Debug)]
 pub enum AppError {
+    /// Error ketika entitas tidak ditemukan.
     #[error("User not found")]
     NotFound,
 
+    /// Error yang berkaitan dengan database, menyertakan pesan spesifik.
     #[error("Database Error: {0}")]
     DatabaseError(String),
 
+    /// Error internal server.
     #[error("Internal Server Error")]
     InternalServerError,
 
+    /// Error validasi input, menyertakan pesan spesifik.
     #[error("Invalid Input")]
     InvalidInput(HashMap<String, Vec<String>>),
 }
 
 impl ResponseError for AppError {
+    /// Mengubah AppError menjadi HttpResponse yang sesuai.
     fn error_response(&self) -> HttpResponse {
         match self {
             AppError::NotFound => {

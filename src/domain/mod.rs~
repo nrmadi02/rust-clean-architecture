@@ -1,5 +1,5 @@
-pub mod dto;
-pub mod response_helpers;
+mod dto;
+mod response_helpers;
 
 use serde::{Deserialize, Serialize};
 use crate::errors::AppError;

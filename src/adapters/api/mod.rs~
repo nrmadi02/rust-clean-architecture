@@ -68,7 +68,6 @@ pub async fn create_user(
 ) -> Result<impl Responder, actix_web::Error> {
 
     let mut validation_errors = HashMap::new();
-
     if let Err(e) = user.validate() {
         for (field, errors) in e.field_errors() {
             let messages: Vec<String> = errors.iter().map(|err| {
